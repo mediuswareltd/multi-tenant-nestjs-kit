@@ -2,10 +2,10 @@ name: 'Snyk'
 
 on:
     push:
-        branches: [develop, stage, master]
+        branches: [dev, stage, master]
     pull_request:
         # The branches below must be a subset of the branches above
-        branches: [develop]
+        branches: [dev]
 
 concurrency:
     group: ${{ github.ref }}-${{ github.workflow }}
