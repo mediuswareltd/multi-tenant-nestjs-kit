@@ -1,7 +1,7 @@
 {
-	"name": "MW-NestJS-Kit",
+	"name": "Multi-Tenant-NestJS-Kit",
 	"version": "0.0.1",
-	"description": "MW-NestJS-Kit",
+	"description": "Multi-Tenant-NestJS-Kit",
 	"private": true,
 	"author": {
 		"name": "Mediusware",
@@ -17,10 +17,10 @@
 	"homepage": "https://github.com/mediuswareltd",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/mediuswareltd/MW-NestJS-Kit.git"
+		"url": "https://github.com/mediuswareltd/Multi-Tenant-NestJS-Kit.git"
 	},
 	"bugs": {
-		"url": "https://github.com/mediuswareltd/MW-NestJS-Kit/issues"
+		"url": "https://github.com/mediuswareltd/Multi-Tenant-NestJS-Kit/issues"
 	},
 	"scripts": {
 		"prebuild": "rimraf dist && rimraf tsconfig.tsbuildinfo",
