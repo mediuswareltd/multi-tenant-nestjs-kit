@@ -1,0 +1,145 @@
+version: '3.8'
+
+services:
+    nginx:
+        image: nginx:latest
+        container_name: production_nginx
+        volumes:
+            - .deploy/nginx/nginx.conf:/etc/nginx/nginx.conf
+            - .deploy/nginx/log/:/etc/nginx/logs
+            - .deploy/nginx/cache/:/etc/nginx/cache
+            - /etc/letsencrypt/:/etc/letsencrypt/
+        ports:
+            - '8080:8080'
+        depends_on:
+            - api
+        links:
+            - api:${API_HOST:-api}
+        networks:
+            - overlay
+
+    db-platform:
+        image: postgres:15-alpine
+        container_name: db-platform
+        restart: always
+        environment:
+            POSTGRES_DB: ${DB_PLATFORM_NAME:-platform}
+            POSTGRES_USER: ${DB_PLATFORM_USER:-postgres}
+            POSTGRES_PASSWORD: ${DB_PLATFORM_PASS:-password}
+        healthcheck:
+            test:
+                [
+                    'CMD-SHELL',
+                    'psql postgres://$${POSTGRES_USER}:$${POSTGRES_PASSWORD}@localhost:5432/$${POSTGRES_DB} || exit 1',
+                ]
+        volumes:
+            - postgres_platform_data:/var/lib/postgresql/data/
+        ports:
+            - '5432:5432'
+        networks:
+            - overlay
+
+    db-tenant:
+        image: postgres:15-alpine
+        container_name: db-tenant
+        restart: always
+        environment:
+            POSTGRES_DB: ${DB_TENANT_NAME:-tenant}
+            POSTGRES_USER: ${DB_TENANT_USER:-postgres}
+            POSTGRES_PASSWORD: ${DB_TENANT_PASS:-password}
+        healthcheck:
+            test:
+                [
+                    'CMD-SHELL',
+                    'psql postgres://$${POSTGRES_USER}:$${POSTGRES_PASSWORD}@localhost:5432/$${POSTGRES_DB} || exit 1',
+                ]
+        volumes:
+            - postgres_tenant_data:/var/lib/postgresql/data/
+        ports:
+            - '5433:5432'
+        networks:
+            - overlay
+
+    redis:
+        image: 'redis:7.0.2-alpine'
+        container_name: redis
+        restart: always
+        command: redis-server --appendonly yes
+        volumes:
+            - redis_data:/data
+        ports:
+            - '6379:6379'
+        healthcheck:
+            test: ['CMD', 'redis-cli', 'ping']
+            interval: 10s
+            timeout: 3s
+            retries: 5
+        networks:
+            - overlay
+
+    pgweb-platform:
+        image: sosedoff/pgweb
+        container_name: pgweb-platform
+        restart: always
+        depends_on:
+            - db-platform
+        environment:
+            DATABASE_URL: postgres://${DB_PLATFORM_USER:-postgres}:${DB_PLATFORM_PASS:-password}@db-platform:5432/${DB_PLATFORM_NAME:-platform}?sslmode=disable
+        ports:
+            - '8081:8081'
+        networks:
+            - overlay
+
+    pgweb-tenant:
+        image: sosedoff/pgweb
+        container_name: pgweb-tenant
+        restart: always
+        depends_on:
+            - db-tenant
+        environment:
+            DATABASE_URL: postgres://${DB_TENANT_USER:-postgres}:${DB_TENANT_PASS:-password}@db-tenant:5432/${DB_TENANT_NAME:-tenant}?sslmode=disable
+        ports:
+            - '8082:8081'
+        networks:
+            - overlay
+
+    api:
+        container_name: api
+        image: api:latest
+        build:
+            context: .
+            dockerfile: .deploy/api/Dockerfile
+        environment:
+            NODE_ENV: ${NODE_ENV:-development}
+            DB_HOST: db
+            SENTRY_DSN: ${SENTRY_DSN:-}
+            IS_NOT_SLS: 'true'
+        env_file:
+            - .env.compose
+        entrypoint: './entrypoint.compose.sh'
+        command: ['pm2-runtime', 'main.js']
+        restart: on-failure
+        depends_on:
+            db-platform:
+                condition: service_healthy
+            db-tenant:
+                condition: service_healthy
+            redis:
+                condition: service_started
+        # volumes:
+        # - api_node_modules:/srv/api/node_modules
+        ports:
+            - '5000:${API_PORT:-5000}'
+        networks:
+            - overlay
+
+volumes:
+    # api_node_modules:
+    postgres_platform_data: {}
+    postgres_tenant_data: {}
+    redis_data: {}
+    certificates: {}
+
+networks:
+    overlay:
+        driver: bridge

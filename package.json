@@ -1,0 +1,256 @@
+{
+	"name": "MW-NestJS-Kit",
+	"version": "0.0.1",
+	"description": "MW-NestJS-Kit",
+	"private": true,
+	"author": {
+		"name": "Mediusware",
+		"email": "contact@mediusware.com",
+		"url": "https://mediusware.com"
+	},
+	"keywords": [
+		"boilerplate",
+		"nestjs",
+		"multitenant"
+	],
+	"license": "MIT",
+	"homepage": "https://github.com/mediuswareltd",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/mediuswareltd/MW-NestJS-Kit.git"
+	},
+	"bugs": {
+		"url": "https://github.com/mediuswareltd/MW-NestJS-Kit/issues"
+	},
+	"scripts": {
+		"prebuild": "rimraf dist && rimraf tsconfig.tsbuildinfo",
+		"prepare": "husky install",
+		"dev": "yarn start:dev",
+		"build": "yarn nest build",
+		"build:prod": "yarn nest build",
+		"format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+		"start": "yarn nest start --watch",
+		"start:dev": "yarn nest start --watch",
+		"start:debug": "yarn nest start --debug --watch",
+		"start:prod": "node dist/main",
+		"start:online": "yarn cross-env IS_DDB_LOCAL= nest start",
+		"seed": "cross-env NODE_ENV=development NODE_OPTIONS=--max_old_space_size=8192 yarn ts-node -r tsconfig-paths/register --project tsconfig.json ./src/modules/seeds/seed.ts",
+		"seed:update": "cross-env NODE_ENV=development NODE_OPTIONS=--max_old_space_size=8192 yarn ts-node -r tsconfig-paths/register --project tsconfig.json ./src/modules/seeds/seed.update.ts",
+		"lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
+		"test": "jest",
+		"test:watch": "jest --watch",
+		"test:cov": "jest --coverage",
+		"test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
+		"test:e2e": "jest --config ./test/jest-e2e.json",
+		"sls:offline": "yarn sls offline start",
+		"sls:deploy": "yarn sls deploy --verbose",
+		"sls:package": "yarn sls package",
+		"sls:start": "cross-env IS_NOT_SLS= yarn sls offline start",
+		"sls:online": "cross-env IS_NOT_SLS= cross-env IS_DDB_LOCAL= yarn sls offline",
+		"migration:create:platform": "typeorm migration:create src/migrations/platform/Migration",
+		"migration:create:tenant": "typeorm migration:create src/migrations/tenant/Migration",
+		"migration:generate:platform": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:generate src/migrations/platform/Migration -d ./src/orm-config.platform.ts",
+		"migration:generate:tenant": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:generate src/migrations/tenant/Migration -d ./src/orm-config.tenant.ts",
+		"migration:run:platform": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:run -d ./src/orm-config.platform.ts",
+		"migration:run:tenant": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:run -d ./src/orm-config.tenant.ts",
+		"migration:run": "yarn migration:run:platform && yarn migration:run:tenant",
+		"migration:rollback:platform": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:revert -d ./src/orm-config.platform.ts",
+		"migration:rollback:tenant": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:revert -d ./src/orm-config.tenant.ts"
+	},
+	"dependencies": {
+		"@dataui/crud": "^5.3.4",
+		"@dataui/crud-request": "^5.3.4",
+		"@dataui/crud-typeorm": "^5.3.4",
+		"@dataui/crud-util": "^5.3.4",
+		"@godaddy/terminus": "^4.12.1",
+		"@nestjs/bull": "^10.2.1",
+		"@nestjs/cache-manager": "^2.2.2",
+		"@nestjs/common": "^11.1.5",
+		"@nestjs/config": "^4.0.2",
+		"@nestjs/core": "^11.1.6",
+		"@nestjs/cqrs": "^11.0.3",
+		"@nestjs/event-emitter": "^2.1.0",
+		"@nestjs/jwt": "^10.2.0",
+		"@nestjs/microservices": "^11.1.6",
+		"@nestjs/passport": "^10.0.3",
+		"@nestjs/platform-express": "^11.1.6",
+		"@nestjs/platform-socket.io": "^11.1.6",
+		"@nestjs/schedule": "^6.0.1",
+		"@nestjs/swagger": "^11.2.1",
+		"@nestjs/terminus": "^11.0.0",
+		"@nestjs/throttler": "^7.0.1",
+		"@nestjs/typeorm": "^11.0.0",
+		"@nestjs/websockets": "^11.1.6",
+		"@ptc-org/nestjs-query-core": "^9.2.1",
+		"@ptc-org/nestjs-query-typeorm": "^9.2.1",
+		"archiver": "^7.0.1",
+		"aws-lambda": "^1.0.7",
+		"aws-serverless-express": "^3.4.0",
+		"bcrypt": "^5.1.0",
+		"bull": "^4.16.3",
+		"cache-manager": "^5.7.6",
+		"cache-manager-redis-store": "^3.0.1",
+		"class-transformer": "^0.5.1",
+		"class-validator": "^0.14.0",
+		"cron": "^2.2.0",
+		"crypto": "^1.0.1",
+		"express": "^4.19.2",
+		"helmet": "^8.0.0",
+		"html-to-text": "^9.0.5",
+		"jsonwebtoken": "^9.0.2",
+		"lodash": "^4.17.21",
+		"moment": "^2.29.4",
+		"multer": "^1.4.5-lts.1",
+		"nanoid": "^3.3.7",
+		"passport": "^0.7.0",
+		"passport-jwt": "^4.0.1",
+		"passport-local": "^1.0.0",
+		"pg": "^8.11.2",
+		"redis": "^4.6.5",
+		"reflect-metadata": "^0.1.13",
+		"rimraf": "^4.4.0",
+		"rxjs": "^7.8.0",
+		"socket.io": "^4.8.1",
+		"sql.js": "^1.8.0",
+		"typeorm": "^0.3.17",
+		"typeorm-express-query-builder": "^1.7.0",
+		"uuid": "^11.0.3",
+		"yargs": "^17.5.0"
+	},
+	"devDependencies": {
+		"@commitlint/cli": "^17.4.4",
+		"@commitlint/config-conventional": "^17.4.4",
+		"@nestjs/cli": "^11.0.10",
+		"@nestjs/schematics": "^11.0.9",
+		"@nestjs/testing": "^11.1.6",
+		"@semantic-release/changelog": "^6.0.2",
+		"@semantic-release/git": "^10.0.1",
+		"@semantic-release/github": "^8.0.7",
+		"@semantic-release/npm": "^9.0.2",
+		"@types/archiver": "^6.0.2",
+		"@types/aws-lambda": "^8.10.113",
+		"@types/aws-serverless-express": "^3.3.5",
+		"@types/bcrypt": "^5.0.2",
+		"@types/bull": "^4.10.0",
+		"@types/express": "^4.17.17",
+		"@types/html-to-text": "^9.0.1",
+		"@types/jest": "^29.4.2",
+		"@types/js-yaml": "^4.0.5",
+		"@types/jsonwebtoken": "^9.0.7",
+		"@types/lodash": "^4.14.191",
+		"@types/multer": "^1.4.12",
+		"@types/node": "^24.8.1",
+		"@types/passport-jwt": "^4.0.1",
+		"@types/passport-local": "^1.0.38",
+		"@types/serverless": "^3.12.11",
+		"@types/supertest": "^2.0.12",
+		"@types/uuid": "^9.0.1",
+		"@typescript-eslint/eslint-plugin": "^5.55.0",
+		"@typescript-eslint/parser": "^5.55.0",
+		"cloc": "^2.11.0",
+		"codelyzer": "^6.0.1",
+		"commitizen": "^4.3.0",
+		"concurrently": "^7.6.0",
+		"conventional-changelog": "^3.1.25",
+		"conventional-changelog-cli": "^2.2.2",
+		"cross-env": "^7.0.3",
+		"cz-conventional-changelog": "^3.3.0",
+		"dotenv": "^16.0.3",
+		"envalid": "^7.3.1",
+		"eslint": "^8.36.0",
+		"eslint-config-airbnb-typescript": "^17.0.0",
+		"eslint-config-prettier": "^8.7.0",
+		"eslint-plugin-import": "^2.32.0 ",
+		"eslint-plugin-jsdoc": "^61.1.4",
+		"eslint-plugin-prettier": "^5.5.4",
+		"husky": "^8.0.3",
+		"jest": "^29.5.0",
+		"js-yaml": "^4.1.0",
+		"lint-staged": "^13.2.0",
+		"nodemon": "^2.0.21",
+		"prettier": "^3.0.0",
+		"prettier-tslint": "^0.4.2",
+		"pretty-quick": "^3.1.3",
+		"semantic-release": "^20.1.1",
+		"serverless": "^3.28.1",
+		"serverless-offline": "^12.0.4",
+		"serverless-plugin-optimize": "^4.2.1-rc.1",
+		"serverless-plugin-typescript": "^2.1.4",
+		"serverless-plugin-warmup": "^8.2.1",
+		"snyk": "^1.1297.3",
+		"stylelint": "^13.7.2",
+		"supertest": "^6.3.3",
+		"swagger-ui-express": "^4.6.2",
+		"ts-jest": "^29.0.5",
+		"ts-loader": "^9.4.4",
+		"ts-morph": "^27.0.2",
+		"ts-node": "^10.9.1",
+		"tsconfig-paths": "^4.1.2",
+		"typedoc": "^0.23.24",
+		"typescript": "^5.9.3"
+	},
+	"jest": {
+		"moduleFileExtensions": [
+			"js",
+			"json",
+			"ts"
+		],
+		"rootDir": "src",
+		"testRegex": ".spec.ts$",
+		"transform": {
+			"^.+\\.(t|j)s$": "ts-jest"
+		},
+		"coverageDirectory": "../coverage",
+		"testEnvironment": "node",
+		"testTimeout": 45000
+	},
+	"lint-staged": {
+		"*.ts": [
+			"prettier --write"
+		]
+	},
+	"config": {
+		"commitizen": {
+			"path": "cz-conventional-changelog"
+		}
+	},
+	"commitlint": {
+		"extends": [
+			"@commitlint/config-conventional"
+		]
+	},
+	"husky": {
+		"hooks": {
+			"commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+			"pre-commit": "pretty-quick --no-verify --staged"
+		}
+	},
+	"release": {
+		"verifyConditions": [
+			"@semantic-release/changelog",
+			"@semantic-release/npm",
+			"@semantic-release/git",
+			"@semantic-release/github"
+		],
+		"prepare": [
+			"@semantic-release/changelog",
+			"@semantic-release/npm",
+			"@semantic-release/git"
+		],
+		"publish": [
+			"@semantic-release/github"
+		],
+		"generateNotes": {
+			"preset": "angular"
+		},
+		"npmPublish": false
+	},
+	"prettier": {
+		"singleQuote": true
+	},
+	"engines": {
+		"node": ">=20.0.0",
+		"yarn": ">=1.13.0"
+	},
+	"snyk": true
+}

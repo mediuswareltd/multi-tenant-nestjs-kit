@@ -1,0 +1,67 @@
+# Node modules
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Development files
+*.md
+!README.md
+.git/
+.gitignore
+.github/
+.vscode/
+.idea/
+
+# Test files
+test/
+coverage/
+*.spec.ts
+jest.config.js
+.eslintrc.js
+
+# Build files
+dist/
+build/
+*.tsbuildinfo
+
+# Environment files
+.env
+.env.local
+.env.*.local
+env.example
+
+# Logs
+logs/
+*.log
+ormlogs.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Documentation
+docs/
+
+# CI/CD
+.github/
+.gitlab-ci.yml
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.swp
+*.swo
+
+# Upload directories (use volumes instead)
+uploads/
+
+# Database files
+*.sqlite
+*.db
+
+# IDE
+*.iml
+.idea/
+.vscode/
+*.code-workspace
