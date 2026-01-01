@@ -253,7 +253,8 @@
 		"webapp",
 		"websockets",
 		"xpack",
-		"xplat"
+		"xplat",
+		"Mediusware"
 	],
 	"useGitignore": true,
 	"ignorePaths": [
