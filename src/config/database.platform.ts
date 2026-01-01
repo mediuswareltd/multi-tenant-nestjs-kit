@@ -4,7 +4,7 @@ import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from '@nestjs/typeorm';
 
 /**
  * Platform Database Configuration
- * 
+ *
  * This database stores platform-level data:
  * - Tenants
  * - Users (platform & tenant users)
@@ -32,4 +32,3 @@ export class PlatformDatabaseConfigService implements TypeOrmOptionsFactory {
 		};
 	}
 }
-

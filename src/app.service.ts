@@ -3,9 +3,7 @@ import { ConfigurationService } from './config/config';
 
 @Injectable()
 export class AppService implements OnApplicationBootstrap {
-	constructor(
-		private readonly configService: ConfigurationService,
-	) {}
+	constructor(private readonly configService: ConfigurationService) {}
 
 	async ping(): Promise<void> {
 		console.log('AppService ping');

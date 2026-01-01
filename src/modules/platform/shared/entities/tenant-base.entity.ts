@@ -18,4 +18,3 @@ export abstract class TenantBaseEntity extends Base {
 	@Column({ nullable: true })
 	tenantId?: string;
 }
-

@@ -7,7 +7,7 @@ import {
 
 /**
  * Auth Guard
- * 
+ *
  * TODO: Implement JWT authentication guard
  * - Verify user is authenticated
  * - Check user permissions
@@ -20,7 +20,7 @@ export class AuthGuard implements CanActivate {
 
 		if (!IS_DISABLE_AUTH) {
 			const request = context.switchToHttp().getRequest();
-			
+
 			// TODO: Implement JWT verification
 			if (!request.user) {
 				throw new UnauthorizedException('Authentication required');

@@ -22,7 +22,8 @@ export class Tenant extends Base {
 
 	@ApiProperty({
 		type: () => String,
-		description: 'Platform domain: tenant.mediusware.com | app.mediusware.com',
+		description:
+			'Platform domain: tenant.mediusware.com | app.mediusware.com',
 	})
 	@Index({ unique: true })
 	@Column({ type: 'varchar', length: 100, nullable: false, unique: true })
@@ -63,4 +64,3 @@ export class Tenant extends Base {
 	@Column({ type: 'timestamptz', nullable: true, name: 'deleted_at' })
 	deletedAt?: Date;
 }
-

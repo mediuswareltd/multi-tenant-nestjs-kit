@@ -1,4 +1,8 @@
-import { Injectable, ConflictException, NotFoundException } from '@nestjs/common';
+import {
+	Injectable,
+	ConflictException,
+	NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Tenant, TenantStatus } from '../entities';
@@ -83,7 +87,10 @@ export class TenantsService {
 		return tenant;
 	}
 
-	async update(id: string, updateTenantDto: UpdateTenantDto): Promise<Tenant> {
+	async update(
+		id: string,
+		updateTenantDto: UpdateTenantDto,
+	): Promise<Tenant> {
 		const tenant = await this.findOne(id);
 
 		Object.assign(tenant, updateTenantDto);
@@ -118,4 +125,3 @@ export class TenantsService {
 		await this.tenantRepository.save(tenant);
 	}
 }
-

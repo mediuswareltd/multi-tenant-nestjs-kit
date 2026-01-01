@@ -13,4 +13,3 @@ export enum PlanTier {
 	Silver = 'Silver',
 	Gold = 'Gold',
 }
-

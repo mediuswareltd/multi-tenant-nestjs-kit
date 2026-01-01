@@ -58,4 +58,3 @@ export class PaginatedResponse<T> {
 		this.totalPages = Math.ceil(total / limit);
 	}
 }
-
