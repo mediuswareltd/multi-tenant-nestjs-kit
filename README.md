@@ -1,6 +1,6 @@
 ## MW NestJS Kit
 
-MW NestJS Kit with multi-tenant support, ready for foundational implementation.
+Multi-Tenant-NestJS-Kit is a boilerplate with multi-tenant support, ready for foundational implementation.
 
 ## Quick Start
 

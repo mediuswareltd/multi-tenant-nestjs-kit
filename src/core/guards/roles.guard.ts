@@ -17,15 +17,14 @@ export class RolesGuard implements CanActivate {
 		}
 
 		const { user } = context.switchToHttp().getRequest();
-		
+
 		if (!user) {
 			return false;
 		}
 
 		// TODO: Implement actual role checking logic when User entity is created
 		// return requiredRoles.some((role) => user.roles?.includes(role));
-		
+
 		return true;
 	}
 }
-

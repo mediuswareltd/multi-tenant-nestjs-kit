@@ -43,4 +43,3 @@ export class CreateTenantDto {
 	@IsObject()
 	metadata?: Record<string, any>;
 }
-

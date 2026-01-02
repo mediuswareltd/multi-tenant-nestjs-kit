@@ -4,7 +4,7 @@ import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from '@nestjs/typeorm';
 
 /**
  * Tenant Database Configuration
- * 
+ *
  * This database uses schema-per-tenant approach:
  * - Each tenant gets its own schema (e.g., tenant_abc, tenant_xyz)
  * - Contains tenant-specific business data:
@@ -12,7 +12,7 @@ import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from '@nestjs/typeorm';
  *   - Dashboards
  *   - Settings
  *   - Reports
- * 
+ *
  * Schema switching happens at runtime based on tenant context
  */
 @Injectable()
@@ -35,4 +35,3 @@ export class TenantDatabaseConfigService implements TypeOrmOptionsFactory {
 		};
 	}
 }
-

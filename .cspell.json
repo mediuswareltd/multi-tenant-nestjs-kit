@@ -194,6 +194,8 @@
 		"roboto",
 		"Rusian",
 		"Ruslan",
+		"sarif",
+		"SARIF",
 		"screenfull",
 		"scrollbars",
 		"scrollblock",
@@ -251,7 +253,8 @@
 		"webapp",
 		"websockets",
 		"xpack",
-		"xplat"
+		"xplat",
+		"Mediusware"
 	],
 	"useGitignore": true,
 	"ignorePaths": [
@@ -281,6 +284,7 @@
 		"**/migrations/**",
 		"packages/**/*.seed.json",
 		"**/*.svg",
+		".github/**",
 		"tools/build/webpack.config.js"
 	]
 }

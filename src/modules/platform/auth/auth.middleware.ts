@@ -4,7 +4,7 @@ import { CustomRequest } from '../../../core/interfaces';
 
 /**
  * Auth Middleware
- * 
+ *
  * TODO: Implement JWT authentication
  * - Verify JWT token from Authorization header
  * - Extract user and tenant from token

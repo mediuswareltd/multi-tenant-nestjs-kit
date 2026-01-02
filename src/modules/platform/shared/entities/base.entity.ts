@@ -35,4 +35,3 @@ export abstract class Base {
 	@Column({ nullable: false, default: false })
 	isArchived: boolean;
 }
-

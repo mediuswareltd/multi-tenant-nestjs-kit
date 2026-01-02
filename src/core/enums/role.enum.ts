@@ -13,4 +13,3 @@ export enum TenantRole {
 	ReadOnly = 'ReadOnly',
 	APIClient = 'APIClient',
 }
-
