@@ -1,5 +1,7 @@
 ## MW NestJS Kit
 
+[![Docs](https://img.shields.io/badge/docs-GitHub%20Pages-0f766e)](https://mediuswareltd.github.io/multi-tenant-nestjs-kit/)
+
 Multi-Tenant-NestJS-Kit is a boilerplate with multi-tenant support, ready for foundational implementation.
 
 ## Quick Start
@@ -142,3 +144,15 @@ nest generate resource modules/platform/foobar
 
 - Tenant-scoped business logic
 - Documents, dashboards, settings, reports
+
+## Documentation
+
+Full docs site (VitePress): **https://mediuswareltd.github.io/multi-tenant-nestjs-kit/**
+
+Local preview:
+
+```bash
+cd docs
+npm install
+npm run docs:dev
+```
