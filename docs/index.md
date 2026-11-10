@@ -5,6 +5,9 @@ hero:
   name: "Multi-Tenant NestJS Kit"
   text: "NestJS boilerplate with multi-tenant foundations"
   tagline: "A NestJS starter with multi-tenant database support, Docker Compose, and migration-ready setup."
+  image:
+    src: /hero.svg
+    alt: "Multi-Tenant NestJS Kit"
   actions:
   - theme: brand
     text: Get started
